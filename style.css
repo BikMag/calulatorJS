@@ -1,0 +1,219 @@
+body {
+  --bg-color: white;
+  --text-color: black;
+  --primary-color: #e7e7e7;
+  --secondary-color: rgb(255, 238, 181);
+  --buttons-primary-color: darkgray;
+  --buttons-secondary-color: gray;
+  --equals-button-color: orange;
+
+  --display-color: rgb(0, 148, 0);
+
+  background-color: var(--bg-color);
+  color: var(--text-color);
+
+  transition: all 0.5s;
+}
+
+body[data-dark-theme] {
+  --bg-color: #2d2d2e;
+  --text-color: white;
+  --primary-color: #555;
+  --secondary-color: rgb(0, 120, 225);
+  --buttons-primary-color: lightgray;
+  --buttons-secondary-color: darkgray;
+  --equals-button-color: orange;
+
+  --display-color: rgb(0, 167, 0);
+
+  color: var(--text-color);
+}
+
+#theme {
+  padding: 7px 15px;
+
+  border: none;
+  border-radius: 10px;
+
+  font-weight: bold;
+
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+
+  &:focus {
+    outline: none;
+  }
+}
+
+section {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+section, section * {
+  transition: background-color 0.5s;
+}
+
+#calculator {
+  display: flex;
+  flex-flow: column nowrap;
+
+  width: 300px;
+  height: 400px;
+  padding: 10px;
+
+  border-radius: 15px;
+
+  background-color: var(--primary-color);
+}
+
+#calculator .display {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+
+  margin-bottom: 5px;
+  padding: 10px 8px 1px;
+  height: 60px;
+
+  text-align: right;
+  
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+
+  border: solid var(--buttons-secondary-color);
+  border-radius: 10px;
+  overflow-x: hidden;
+
+  background-color: var(--display-color);
+  color: white;
+}
+
+#calculator .expression-display {
+  font-size: 14px;
+}
+
+#calculator .main-display {
+  font-size: 34px;
+}
+
+#calculator .buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-areas: 
+    "percent backspace clear divide"
+    "num7 num8 num9 multiple"
+    "num4 num5 num6 minus"
+    "num1 num2 num3 plus"
+    "sign num0 point equals";
+  gap: 5px 5px;
+
+  flex-grow: 1;
+
+  &[blocked] :not(.num, .clear) {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+#calculator .buttons button {
+  /* width: 70px; */
+  /* height: 40px; */
+
+  font-size: 18pt;
+
+  user-select: none;
+
+  border: none;
+  border-radius: 10px;
+
+  cursor: pointer;
+  transition: filter 0.3s, opacity .3s;
+
+  &:hover {
+    filter: brightness(0.9);
+  }
+
+  &:active {
+    filter: brightness(0.8);
+  }
+}
+
+#calculator .primary {
+  background-color: var(--buttons-primary-color);
+}
+
+#calculator .secondary {
+  background-color: var(--buttons-secondary-color);
+}
+
+#calculator .percent {
+  grid-area: percent;
+}
+
+#calculator .backspace {
+  grid-area: backspace;
+}
+
+#calculator .clear {
+  grid-area: clear;
+}
+
+#calculator .divide {
+  grid-area: divide;
+}
+
+#calculator .num1 {
+  grid-area: num1;
+}
+
+#calculator .num2 {
+  grid-area: num2;
+}
+
+#calculator .num3 {
+  grid-area: num3;
+}
+
+#calculator .num4 {
+  grid-area: num4;
+}
+
+#calculator .num5 {
+  grid-area: num5;
+}
+
+#calculator .num6 {
+  grid-area: num6;
+}
+
+#calculator .num7 {
+  grid-area: num7;
+}
+
+#calculator .num8 {
+  grid-area: num8;
+}
+
+#calculator .num9 {
+  grid-area: num9;
+}
+
+#calculator .num0 {
+  grid-area: num0;
+}
+
+#calculator .sign {
+  grid-area: sign;
+}
+
+#calculator .point {
+  grid-area: point;
+}
+
+#calculator .equals {
+  grid-area: equals;
+  background-color: var(--equals-button-color);
+}

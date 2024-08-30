@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- <button id="theme" onclick="toggleTheme()">Change theme</button> -->
+    <select id="theme">
+      <option value="light">Светлая</option>
+      <option value="dark" selected>Темная</option>
+      <option value="time">По времени</option>
+    </select>
+
+    <section>
+      <h1>Calculator</h1>
+      <div id="calculator">
+        <div class="display">
+          <div class="expression-display"></div>
+          <div class="main-display">0</div>
+        </div>
+        <div class="buttons">
+          <button class="num num1 primary">1</button>
+          <button class="num num2 primary">2</button>
+          <button class="num num3 primary">3</button>
+          <button class="num num4 primary">4</button>
+          <button class="num num5 primary">5</button>
+          <button class="num num6 primary">6</button>
+          <button class="num num7 primary">7</button>
+          <button class="num num8 primary">8</button>
+          <button class="num num9 primary">9</button>
+          <button class="num num0 primary">0</button>
+
+          <button class="sign primary">+/-</button>
+          <button class="point primary">.</button>
+
+          <button class="binary-oper plus secondary">+</button>
+          <button class="binary-oper minus secondary">-</button>
+          <button class="binary-oper multiple secondary">*</button>
+          <button class="binary-oper divide secondary">/</button>
+          <button class="equals">=</button>
+
+          <button class="clear secondary">C</button>
+          <button class="backspace secondary"><<</button>
+          <button class="percent secondary">%</button>
+        </div>
+      </div>
+    </section>
+
+    <script src="scripts/change-theme.js"></script>
+    <script src="scripts/calculator-module.js"></script>
+    <script src="scripts/key-binds.js"></script>
+  </body>
+</html>
