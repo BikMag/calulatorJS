@@ -71,20 +71,22 @@ section, section * {
 #calculator .display {
   display: flex;
   flex-flow: column nowrap;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  align-items: end;
 
   margin-bottom: 5px;
   padding: 10px 8px 1px;
   height: 60px;
 
   text-align: right;
+  text-wrap: nowrap;
   
   font-weight: 600;
   font-family: Arial, Helvetica, sans-serif;
 
   border: solid var(--buttons-secondary-color);
   border-radius: 10px;
-  overflow-x: hidden;
+  overflow: hidden;
 
   background-color: var(--display-color);
   color: white;
@@ -92,10 +94,13 @@ section, section * {
 
 #calculator .expression-display {
   font-size: 14px;
+  height: 15px;
 }
 
 #calculator .main-display {
   font-size: 34px;
+  width: fit-content;
+  offset: scroll;
 }
 
 #calculator .buttons {
@@ -119,9 +124,6 @@ section, section * {
 }
 
 #calculator .buttons button {
-  /* width: 70px; */
-  /* height: 40px; */
-
   font-size: 18pt;
 
   user-select: none;

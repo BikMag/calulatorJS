@@ -1,6 +1,7 @@
 "use strict";
 
 let buttonPanel = document.querySelector("#calculator .buttons");
+let display = document.querySelector("#calculator .display");
 let mainDisplay = document.querySelector("#calculator .main-display");
 let expressionDisplay = document.querySelector(
   "#calculator .expression-display"
@@ -26,13 +27,12 @@ buttonPanel.addEventListener("click", function (e) {
   }
 
   displayOutput(e.target);
+  displayCorrect();
 
   if (!isNumeric(mainDisplay.textContent)) {
     buttonPanel.setAttribute("blocked", "");
-    mainDisplay.style.fontSize = "23px";
   } else {
     buttonPanel.removeAttribute("blocked");
-    mainDisplay.style.fontSize = "34px";
   }
 });
 
@@ -50,7 +50,7 @@ function displayOutput(button) {
 
     if (displayValue === "0" || prevButton.classList.contains("binary-oper")) {
       displayValue = button.textContent;
-    } else {
+    } else if (displayValue.replace(".", "").length < 16) {
       displayValue += button.textContent;
     }
   } else if (button.classList.contains("binary-oper")) {
@@ -69,12 +69,16 @@ function displayOutput(button) {
     displayValue = "0";
     stack = [];
   } else if (button.classList.contains("backspace")) {
-    displayValue =
-      displayValue.replace("-", "").length == 1
-        ? "0"
-        : displayValue.slice(0, -1);
+    if (+displayValue == 0) {
+      displayValue = "0";
+    } else {
+      displayValue =
+        displayValue.replace("-", "").length == 1
+          ? "0"
+          : displayValue.slice(0, -1);
+    }
   } else if (button.classList.contains("point")) {
-    if (prevButton.classList.contains("binary-oper")) {
+    if (prevButton && prevButton.classList.contains("binary-oper")) {
       displayValue = "0.";
     } else if (!displayValue.includes(".")) {
       displayValue += ".";
@@ -111,4 +115,18 @@ function displayOutput(button) {
 
   expressionDisplay.textContent = stack.join(" ");
   mainDisplay.textContent = displayValue;
+}
+
+function displayCorrect() {
+  let displayWidth = parseInt(getComputedStyle(display).width);
+
+  let fontSize = 34;
+  mainDisplay.style.fontSize = fontSize + "px";
+
+  while (mainDisplay.clientWidth > displayWidth) {
+    fontSize = parseInt(getComputedStyle(mainDisplay).fontSize);
+    mainDisplay.style.fontSize = fontSize - 1 + "px";
+
+    console.log(mainDisplay.style.fontSize);
+  }
 }
