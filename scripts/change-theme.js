@@ -3,7 +3,17 @@
 let attr = "data-dark-theme";
 let timeId;
 
+/**
+ * Изменение темы в зависимости от времени
+ * @param {string} start - время смены темной темы на светлую
+ * @param {string} end - время смены светлой темы на темную
+ */
 function changeThemeByTime(start, end) {
+  /**
+   * Конвертирование строки в объект Date
+   * @param {string} str - строка в формате "hh:mm"
+   * @returns {Date} Объект Date
+   */
   function stringToDate(str) {
     let date = new Date();
 
@@ -15,6 +25,9 @@ function changeThemeByTime(start, end) {
     return date;
   }
 
+  /**
+   * Отслеживает текущее время и меняет тему
+   */
   function checkTime() {
     let date = Date.now();
 
@@ -32,6 +45,10 @@ function changeThemeByTime(start, end) {
   timeId = setInterval(checkTime, 1000);
 }
 
+/**
+ * Устанавливает тему по заданному режиму
+ * @param {string} theme - режим темы
+ */
 function setTheme(theme) {
   if (theme == "light") {
     document.body.removeAttribute(attr);
@@ -40,6 +57,9 @@ function setTheme(theme) {
   }
 }
 
+/**
+ * Переключает тему
+ */
 function toggleTheme() {
   if (document.body.hasAttribute(attr)) {
     document.body.removeAttribute(attr);
@@ -48,6 +68,9 @@ function toggleTheme() {
   }
 }
 
+/**
+ * Сканирует значение из <select> и задает тему на основе этого значения
+ */
 function checkSelectOption() {
   switch (select.value) {
     case "light":

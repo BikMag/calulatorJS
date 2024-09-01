@@ -25,8 +25,6 @@ body[data-dark-theme] {
   --equals-button-color: orange;
 
   --display-color: rgb(0, 167, 0);
-
-  color: var(--text-color);
 }
 
 #theme {
@@ -71,7 +69,6 @@ section, section * {
 #calculator .display {
   display: flex;
   flex-flow: column nowrap;
-  /* justify-content: space-between; */
   align-items: end;
 
   margin-bottom: 5px;
@@ -167,6 +164,22 @@ section, section * {
   grid-area: divide;
 }
 
+#calculator .multiple {
+  grid-area: multiple;
+}
+
+#calculator .minus {
+  grid-area: minus;
+}
+
+#calculator .plus {
+  grid-area: plus;
+}
+
+#calculator .num0 {
+  grid-area: num0;
+}
+
 #calculator .num1 {
   grid-area: num1;
 }
@@ -201,10 +214,6 @@ section, section * {
 
 #calculator .num9 {
   grid-area: num9;
-}
-
-#calculator .num0 {
-  grid-area: num0;
 }
 
 #calculator .sign {

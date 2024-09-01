@@ -17,6 +17,8 @@ buttonPanel.addEventListener("click", function (e) {
     return;
   }
 
+  e.target.blur();
+
   if (
     buttonPanel.hasAttribute("blocked") &&
     !(
@@ -27,7 +29,8 @@ buttonPanel.addEventListener("click", function (e) {
   }
 
   displayOutput(e.target);
-  displayCorrect();
+  displayCorrect(mainDisplay, 34);
+  displayCorrect(expressionDisplay, 14);
 
   if (!isNumeric(mainDisplay.textContent)) {
     buttonPanel.setAttribute("blocked", "");
@@ -40,6 +43,10 @@ function isNumeric(str) {
   return !isNaN(+str);
 }
 
+/**
+ * Отображение информации на дисплее
+ * @param {HTMLElement} button - Нажатая кнопка
+ */
 function displayOutput(button) {
   let displayValue = mainDisplay.textContent;
 
@@ -59,8 +66,18 @@ function displayOutput(button) {
       stack.push(displayValue);
       stack.push(button.textContent);
     } else if (stack.length == 2) {
-      stack.pop();
-      stack.push(button.textContent);
+      if (prevButton.classList.contains("binary-oper")) {
+        stack.pop();
+        stack.push(button.textContent);
+      } else {
+        calculate();
+
+        if (isNumeric(displayValue)) {
+          stack = [];
+          stack.push(displayValue);
+          stack.push(button.textContent);
+        }
+      }
     } else {
       stack.push(displayValue);
       stack.push(button.textContent);
@@ -90,10 +107,25 @@ function displayOutput(button) {
       displayValue = +displayValue / 100;
     }
   } else if (button.classList.contains("sign")) {
-    if (+displayValue != 0) {
-      displayValue = +displayValue * -1;
+    if (displayValue != "0") {
+      if (displayValue.includes("-")) {
+        displayValue = displayValue.slice(1);
+      } else {
+        displayValue = "-" + displayValue;
+      }
     }
   } else if (button.classList.contains("equals")) {
+    calculate();
+  }
+  prevButton = button;
+
+  expressionDisplay.textContent = stack.join(" ");
+  mainDisplay.textContent = displayValue;
+
+  /**
+   * Вычисляет значение и записывает его в displayValue
+   */
+  function calculate() {
     if (stack.length == 3) {
       stack.shift();
       stack.unshift(displayValue);
@@ -106,27 +138,26 @@ function displayOutput(button) {
         displayValue = "Error of divivsion on zero";
         stack = [];
       } else {
-        let calculate = new Function("", "return " + stack.join(" "));
-        displayValue = calculate();
+        let f = new Function("", "return " + stack.join(" "));
+        displayValue = f();
       }
     }
   }
-  prevButton = button;
-
-  expressionDisplay.textContent = stack.join(" ");
-  mainDisplay.textContent = displayValue;
 }
 
-function displayCorrect() {
+/**
+ * Динамическое изменение размера шрифта под размеры элемента
+ * @param {HTMLElement} displayComponent - Элемент, под который подстраивается текст
+ * @param {number} maxSize - Максимальный размер шрифта
+ */
+function displayCorrect(displayComponent, maxSize) {
   let displayWidth = parseInt(getComputedStyle(display).width);
 
-  let fontSize = 34;
-  mainDisplay.style.fontSize = fontSize + "px";
+  let fontSize = maxSize;
+  displayComponent.style.fontSize = fontSize + "px";
 
-  while (mainDisplay.clientWidth > displayWidth) {
-    fontSize = parseInt(getComputedStyle(mainDisplay).fontSize);
-    mainDisplay.style.fontSize = fontSize - 1 + "px";
-
-    console.log(mainDisplay.style.fontSize);
+  while (displayComponent.clientWidth > displayWidth) {
+    fontSize = parseInt(getComputedStyle(displayComponent).fontSize);
+    displayComponent.style.fontSize = fontSize - 1 + "px";
   }
 }
