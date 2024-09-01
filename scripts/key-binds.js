@@ -90,12 +90,12 @@ document.addEventListener("keydown", function (e) {
 function switchSelect() {
   let select = document.getElementById("theme");
 
-  let selectedIndex = select.selectedIndex;
-  let optionsCount = select.children.length;
+  let li = select.querySelector(`li.${select.dataset.selected}`);
+  let nextLi = li.nextElementSibling;
 
-  selectedIndex = selectedIndex == optionsCount - 1 ? 0 : selectedIndex + 1;
-  console.log(selectedIndex);
-
-  select.options[selectedIndex].selected = true;
-  select.dispatchEvent(new Event("input"));
+  if (nextLi) {
+    select.dataset.selected = nextLi.className;
+  } else {
+    select.dataset.selected = select.querySelector("li").className;
+  }
 }

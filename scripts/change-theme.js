@@ -71,8 +71,8 @@ function toggleTheme() {
 /**
  * Сканирует значение из <select> и задает тему на основе этого значения
  */
-function checkSelectOption() {
-  switch (select.value) {
+function checkSelectOption(dropdown) {
+  switch (dropdown.dataset.selected) {
     case "light":
       setTheme("light");
       clearInterval(timeId);
@@ -87,7 +87,4 @@ function checkSelectOption() {
   }
 }
 
-let select = document.getElementById("theme");
-
-checkSelectOption();
-select.addEventListener("input", checkSelectOption);
+checkSelectOption(document.getElementById("theme"));

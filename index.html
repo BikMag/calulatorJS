@@ -6,13 +6,21 @@
     <title>Calculator</title>
 
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="dropdown/dropdown.css" />
+
+    <script defer src="dropdown/dropdown.js"></script>
   </head>
+
   <body>
-    <select id="theme">
-      <option value="light">Светлая</option>
-      <option value="dark" selected>Темная</option>
-      <option value="time">По времени</option>
-    </select>
+    <div id="theme" class="dropdown" data-selected="dark">
+      <div class="switch" tabindex="0">Выбор темы</div>
+      <ul>
+        <li class="light">Светлая</li>
+        <li class="dark">Темная</li>
+        <li class="time">По времени</li>
+      </ul>
+    </div>
+    <script src="scripts/theme.js"></script>
 
     <section>
       <h1>Calculator</h1>

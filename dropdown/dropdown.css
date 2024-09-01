@@ -1,0 +1,86 @@
+.dropdown {
+  position: relative;
+  width: fit-content;
+}
+
+.dropdown .switch {
+  padding: 7px 10px 7px 8px;
+
+  border: none;
+  border-radius: 10px;
+
+  font-weight: bold;
+
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    filter: brightness(0.9);
+  }
+
+  &:focus {
+    outline: 1px solid red;
+  }
+}
+
+.dropdown {
+  &[data-selected=dark] .switch::before {
+    content: "🌕 ";
+  }
+
+  &[data-selected=light] .switch::before {
+    content: "☀️ ";
+  }
+
+  &[data-selected=time] .switch::before {
+    content: "🕒 ";
+  }
+}
+
+.dropdown ul li.dark::before {
+  content: "🌕 ";
+}
+
+.dropdown ul li.light::before {
+  content: "☀️ ";
+}
+
+.dropdown ul li.time::before {
+  content: "🕒 ";
+}
+
+.dropdown ul {
+  display: none;
+
+  position: absolute;
+  top: 40px;
+  width: 130px;
+
+  margin: 0;
+  padding-left: 0.1rem;
+
+  list-style: none;
+}
+
+.dropdown ul li {
+  padding: 10px 0 10px 0.5em;
+
+  background-color: var(--secondary-color);
+
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(0.9) !important;
+  }
+}
+
+.dropdown ul > :not(:first-child) {
+  border-top: 1px solid;
+}
+
+.dropdown[data-dropped] ul {
+  display: block;
+}
