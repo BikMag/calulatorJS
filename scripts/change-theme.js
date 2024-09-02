@@ -42,6 +42,7 @@ function changeThemeByTime(start, end) {
   let endDate = stringToDate(end);
 
   checkTime();
+  clearInterval(timeId);
   timeId = setInterval(checkTime, 1000);
 }
 
