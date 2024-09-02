@@ -1,5 +1,9 @@
 "use strict";
 
+/**
+ * Подсветка выбранного варианта из выпадающего списка
+ * @param {HTMLElement} dropdown - элемент дропдауна
+ */
 function highlightOption(dropdown) {
   let options = dropdown.querySelectorAll("li");
 
@@ -11,21 +15,27 @@ function highlightOption(dropdown) {
     "brightness(0.8)";
 }
 
-document.addEventListener("click", (e) => {
-  let dropdown = e.target.closest(".dropdown");
+/**
+ * Выводит список вариантов для дропдауна
+ * @param {Event} event - Событие для обработчика нажатий
+ */
+function dropList(event) {
+  let dropdown = event.target.closest(".dropdown");
 
-  if (!dropdown) {
-    let dropdowns = document.querySelectorAll(".dropdown");
+  let dropdowns = document.querySelectorAll(".dropdown");
 
-    for (let dr of dropdowns) {
+  for (let dr of dropdowns) {
+    if (dr != dropdown) {
       dr.removeAttribute("data-dropped");
     }
+  }
 
+  if (!dropdown) {
     return;
   }
 
-  if (e.target.tagName == "LI") {
-    dropdown.dataset.selected = e.target.className;
+  if (event.target.tagName == "LI") {
+    dropdown.dataset.selected = event.target.className;
     highlightOption(dropdown);
   }
 
@@ -34,10 +44,10 @@ document.addEventListener("click", (e) => {
   } else {
     dropdown.dataset.dropped = "";
   }
-});
+}
+
+document.addEventListener("click", (e) => dropList(e));
 
 for (let dropdown of document.querySelectorAll(".dropdown")) {
-  console.log(dropdown);
-
   highlightOption(dropdown);
 }
